@@ -8,7 +8,17 @@ import {Carro} from '../shared/carro.model';
 @Component({
   selector: 'app-lista-productos',
   templateUrl: './lista-productos.component.html',
-  styleUrls: ['./lista-productos.component.css']
+  styles : [`.thumbnail img {
+		width:100%;
+	}
+  .products {
+    border: 1px solid #333;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 16px;
+    margin-bottom: 20px;
+  }`],
+  //styleUrls: ['./lista-productos.component.css']
 })
 export class ListaProductosComponent implements OnInit {
 
