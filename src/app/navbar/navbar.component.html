@@ -1,0 +1,7 @@
+<ul class="nav nav-tabs" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+  <li *ngFor="let e of estaciones" [routerLinkActive]="['active']">
+    <a class="disabled disabledTab"  routerLinkActive="linkActive" routerLink="/productos/{{e.id}}">
+      {{e.nombreEstacion}}
+    </a>
+  </li>
+</ul>
