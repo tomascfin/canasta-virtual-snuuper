@@ -5,6 +5,7 @@ export class Carro {
   private static instance: Carro = new Carro();
   private _compra : Array<Compra> = [];
   private  _valorTotal : number;
+  public _cantidad : Number = 0;
 
 
   constructor(){
@@ -21,6 +22,7 @@ export class Carro {
   }
 
   get getCompra():Array<Compra> {
+    
     return  Carro.instance._compra;
   }
 
@@ -34,5 +36,24 @@ export class Carro {
 
   set setValorTotal(valor: number){
     Carro.instance._valorTotal = valor;
+  }
+
+  set setCantidad (valor: Number){
+    Carro.instance._cantidad = this._compra.length;
+  }
+
+  get getCantidad (): Number{
+    /*if(Carro.instance != null){
+      console.log("entra 1")
+      this._cantidad = Carro.instance._compra.length;
+    }else{
+      console.log("entra 2")
+      this._cantidad = 0;
+    }*/
+    
+    this._cantidad = Carro.instance._compra.length;
+    console.log("cantidad articulos", Carro.instance._compra.length);
+    return Carro.instance._compra.length;
+    //return this._cantidad;
   }
 }

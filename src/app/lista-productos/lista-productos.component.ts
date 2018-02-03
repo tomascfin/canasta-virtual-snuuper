@@ -1,9 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, Inject} from '@angular/core';
 import {ProductosService} from '../productos.service';
 import {Producto} from '../shared/producto.model'
 import {Compra} from '../shared/compra.model'
 import {ActivatedRoute, Params} from '@angular/router';
 import {Carro} from '../shared/carro.model';
+import {CarroService} from '../carro.service';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-lista-productos',
@@ -17,9 +19,21 @@ import {Carro} from '../shared/carro.model';
     border-radius: 5px;
     padding: 16px;
     margin-bottom: 20px;
-  }`],
-  //styleUrls: ['./lista-productos.component.css']
+  }
+  .demo-2 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 300px;
+  }
+  .demo-3 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 250px;
+  }`]
 })
+
 export class ListaProductosComponent implements OnInit {
 
   message: string;
@@ -33,9 +47,14 @@ export class ListaProductosComponent implements OnInit {
   buttonNameAnterior: string = 'Estacion anterior';
   primeraEstacion: boolean = true;
   contadorParaId: number = 0;
+  animal : String ;
+  name: String ;
+
 
   constructor(private _productosService: ProductosService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+            private _CarroService : CarroService,
+            public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -45,7 +64,7 @@ export class ListaProductosComponent implements OnInit {
         this.primeraEstacion = true;
         this.buttonName = 'Siguiente estacion';
         this.siguienteEstacion = '/productos/movies';
-      } else if (this.id == 'movies') {
+      } else if (this.id === 'movies') {
         this.primeraEstacion = false;
         this.buttonName = 'Siguiente estacion';
         this.anteriorEstacion = '/productos/electronics'
@@ -86,8 +105,40 @@ export class ListaProductosComponent implements OnInit {
     this.compra = new Compra(this.contadorParaId, produ);
     ;
     Carro.getInstance().getCompra.push(this.compra);
+   // Carro.getInstance().getCantidad = Carro.getInstance().getCompra.length;
     //this.openPopup('small', 'Proceso exitoso');
+    Carro.getInstance().getCantidad;
+this._CarroService.editarCantidadArticulos( Carro.getInstance().getCantidad);
+  }
 
+  openDialog(): void {
+    let dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      width: '250px',
+      data: { name: this.name, animal: this.animal }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.animal = result;
+    });
+
+  }
+
+}
+
+
+@Component({
+  selector: 'dialog-overview-example-dialog',
+  templateUrl: './dialog-overview-example-dialog.html',
+})
+export class DialogOverviewExampleDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

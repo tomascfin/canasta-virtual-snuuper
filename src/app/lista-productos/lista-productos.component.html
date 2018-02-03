@@ -6,20 +6,19 @@
     <div class="thumbnail">
       <img src={{producto.url}} class="img-responsive" alt="Cinque Terre" width="304" height="236"/>
       <div class="caption">
-        <h3>{{producto.name}}</h3>
-        <p>{{producto.excerpt}}</p>
+        <h3 class="demo-2">{{producto.name}}</h3>
+        <p class="demo-3">{{producto.excerpt}}</p>
         <h4> USD {{producto.price}}</h4>
         <p><a class="btn btn-success btn-xs"
-              (click)="sumarPrecio(producto)">Agregar al carrito</a> </p>
+              (click)="sumarPrecio(producto) ; openDialog()">Agregar al carrito</a> </p>
       </div>
     </div>
   </div>
  <!-- <ng2-popup #popup></ng2-popup>-->
-
 </div>
 <div class="container">
   <div class="row">
-    <div class="col-md-2" [hidden] = "primeraEstacion"> <button class="btn btn-primary btn-xs" routerLink="{{anteriorEstacion}}"> {{buttonNameAnterior}} </button></div>
+    <div class="col-md-2" > <button class="btn btn-primary btn-xs" routerLink="{{anteriorEstacion}}" [disabled] = "primeraEstacion"> {{buttonNameAnterior}} </button></div>
     <div class="col-md-8"></div>
     <div class="col-md-2">
       <button class="btn btn-primary btn-xs" routerLink="{{siguienteEstacion}}"> {{buttonName}} </button>
