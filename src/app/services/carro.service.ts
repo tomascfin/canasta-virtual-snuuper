@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Carro} from './shared/carro.model';
+import {Carro} from '../shared/carro.model';
 import {BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
@@ -13,6 +13,6 @@ export class CarroService {
    editarCantidadArticulos(cantidad : Number){
      this.data.next(cantidad);
    }
-  
+
 
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Carro} from '../shared/carro.model';
 import 'rxjs/add/operator/map';
-import {CarroService} from '../carro.service';
+import {CarroService} from '../services/carro.service';
 
 @Component({
   selector: 'app-navbar',

@@ -4,7 +4,7 @@ import {Compra} from '../shared/compra.model'
 import { Http } from '@angular/http';
 import { Router, RouterLinkActive} from '@angular/router';
 import {Carro} from '../shared/carro.model';
-import {CarroService} from '../carro.service';
+import {CarroService} from '../services/carro.service';
 @Component({
   selector: 'app-carro',
   templateUrl: './carro.component.html',
@@ -12,7 +12,7 @@ import {CarroService} from '../carro.service';
 })
 export class CarroComponent implements OnInit {
 
-  
+
 	carro = [];
 	precioTotal : number=0;
 	estaciones = [
@@ -21,27 +21,27 @@ export class CarroComponent implements OnInit {
   {nombreEstacion: "Video-Juegos", id: "videogames"}];
   prueba : Number = 0;
 
-	
+
 	ordenDeCompra = {total: null as number, articulos: new Array<Compra>()};
-	
+
 	constructor(private http: Http,
 	private _CarroService : CarroService){}
 
 	ngOnInit(){
 		this.carro = Carro.getInstance().getCompra;
-    this.calcularTotal();		
+    this.calcularTotal();
     console.log("  Carro.getInstance().getCantidad:"+  Carro.getInstance().getCompra.length);
 	}
 
 	calcularTotal(){
 		if (this.carro != null && this.carro.length > 0 ) {
 			for(var item of this.carro){
-				this.precioTotal = this.precioTotal + item.producto.price;	
+				this.precioTotal = this.precioTotal + item.producto.price;
 			}
 		}
-		
+
   }
-  
+
 
 	eliminarArticulo(compra){
     console.log("entra a eliminarArticulo");
@@ -50,7 +50,7 @@ export class CarroComponent implements OnInit {
 		this.precioTotal = this.precioTotal - compra.producto.price;
 		this._CarroService.editarCantidadArticulos( +Carro.getInstance().getCantidad);
 	}
-	
+
 	generarCompra(){
 		Carro.getInstance().setValorTotal = this.precioTotal;
 		this.ordenDeCompra.total =  this.precioTotal;
