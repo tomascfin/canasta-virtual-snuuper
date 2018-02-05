@@ -1,8 +1,11 @@
-<ul class="nav nav-tabs" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-  <li *ngFor="let e of estaciones" [routerLinkActive]="['active']">
-    <a class="disabled disabledTab"  routerLinkActive="linkActive" routerLink="/productos/{{e.id}}">
-      {{e.nombreEstacion}}
-    </a>
-  </li>
-</ul>
-{{cantidadProductos}}
+
+  <div class="navbar-header">
+    <div class="row">
+      <div class="col-md-11">	<a class="navbar-brand" routerLink="">Inicio</a></div>
+      <div class="col-md-1">
+        <img src="../../assets/shopping-cart.svg" width="50px" height="50px" routerLink="/carro/">{{cantidadProductos}}
+      </div>
+    </div>
+  </div>
+
+

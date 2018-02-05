@@ -5,14 +5,17 @@ import {Compra} from '../shared/compra.model'
 import {ActivatedRoute, Params} from '@angular/router';
 import {Carro} from '../shared/carro.model';
 import {CarroService} from '../carro.service';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialog} from '@angular/material';
+import {MatIconRegistry} from '@angular/material';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-lista-productos',
   templateUrl: './lista-productos.component.html',
-  styles : [`.thumbnail img {
-		width:100%;
-	}
+  styles: [`.thumbnail img {
+    width: 100%;
+  }
+
   .products {
     border: 1px solid #333;
     background-color: #f1f1f1;
@@ -20,12 +23,14 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
     padding: 16px;
     margin-bottom: 20px;
   }
+
   .demo-2 {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     max-width: 300px;
   }
+
   .demo-3 {
     overflow: hidden;
     white-space: nowrap;
@@ -47,14 +52,19 @@ export class ListaProductosComponent implements OnInit {
   buttonNameAnterior: string = 'Estacion anterior';
   primeraEstacion: boolean = true;
   contadorParaId: number = 0;
-  animal : String ;
-  name: String ;
+  animal: String;
+  name: String;
 
 
   constructor(private _productosService: ProductosService,
               private activatedRoute: ActivatedRoute,
-            private _CarroService : CarroService,
-            public dialog: MatDialog) {
+              private _CarroService: CarroService,
+              public dialog: MatDialog,
+              iconRegistry: MatIconRegistry,
+              sanitizer: DomSanitizer) {
+    iconRegistry.addSvgIcon(
+      'thumbs-up',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/img/examples/thumbup-icon.svg'));
   }
 
   ngOnInit() {
@@ -85,19 +95,15 @@ export class ListaProductosComponent implements OnInit {
     });
   }
 
-  /* openPopup(size, title) {
-     this.popup.open(Ng2MessagePopupComponent, {
-       classNames: size,
-       title: title,
-       message: "El articulo ha sido añadido",
-       buttons: {
-         OK: () => {
-           this.message = "El articulo ha sido añadido";
-           this.popup.close();
-         }
-       }
-     });
-   }*/
+  openDialog() {
+    const dialogRef = this.dialog.open(DialogCompra, {
+      height: '150px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog resultado: ${result}`);
+    });
+  }
 
   sumarPrecio(producto) {
     this.contadorParaId++;
@@ -105,40 +111,19 @@ export class ListaProductosComponent implements OnInit {
     this.compra = new Compra(this.contadorParaId, produ);
     ;
     Carro.getInstance().getCompra.push(this.compra);
-   // Carro.getInstance().getCantidad = Carro.getInstance().getCompra.length;
+    // Carro.getInstance().getCantidad = Carro.getInstance().getCompra.length;
     //this.openPopup('small', 'Proceso exitoso');
     Carro.getInstance().getCantidad;
-this._CarroService.editarCantidadArticulos( Carro.getInstance().getCantidad);
+    this._CarroService.editarCantidadArticulos(Carro.getInstance().getCantidad);
+    this.openDialog();
   }
-
-  openDialog(): void {
-    let dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      width: '250px',
-      data: { name: this.name, animal: this.animal }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.animal = result;
-    });
-
-  }
-
 }
-
 
 @Component({
-  selector: 'dialog-overview-example-dialog',
-  templateUrl: './dialog-overview-example-dialog.html',
+  selector: 'dialog-content-example-dialog',
+  templateUrl: './dialog-compra.html',
 })
-export class DialogOverviewExampleDialog {
-
-  constructor(
-    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
+export class DialogCompra {
 }
+
+

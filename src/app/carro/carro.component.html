@@ -1,6 +1,7 @@
+<app-navbar></app-navbar>
 <div class="panel panel-default">
 	<!-- Default panel contents -->
-	<div class="panel-heading">Precio total: {{precioTotal}}</div>
+
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -9,7 +10,7 @@
 				<th>Eliminar</th>
 			</tr>
 		</thead>
-		<tbody  *ngFor="let compra of carro">	
+		<tbody  *ngFor="let compra of carro">
 			<tr>
 				<td>{{compra.producto.name}}</td>
 				<td>{{compra.producto.price}}</td>
@@ -18,12 +19,14 @@
 		</tbody>
 	</table>
 </div>
-<div class="container">	
+<hr>
+<div class="panel-heading"><h2>Precio total: {{precioTotal}}</h2></div>
+<div class="container">
 	<h4>¿Desea volver a alguna estacion para escoger otro producto? escoga una estacion</h4>
 	<button class="btn btn-primary btn-xs" routerLink="/productos/electronics"> Electronicos</button>
 	<button class="btn btn-primary btn-xs" routerLink="/productos/movies"> Peliculas</button>
 	<button class="btn btn-primary btn-xs" routerLink="/productos/videogames"> Video-Juegos</button>
-</div>	
+</div>
 <br>
 <div class="container">
 	<button class="btn btn-success btn-xs" (click)="generarCompra()">Aceptar articulos</button> * Se abrira un log con el JSON del carro de compras.
